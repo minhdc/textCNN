@@ -1,0 +1,49 @@
+Scipy not supported!
+cache_path: cache_cnn/vocab_label.pik file_exists: True
+cnn_model.vocab_size: 100000
+num_classes: 22
+0 line: Khi nào thì nhà trường thu lệ phí thi lại __label__topic3
+
+1 line: Tôi ở trong gia đình được hưởng trợ cấp thường xuyên thì có được xét hỗ trợ tiền học không __label__topic3
+
+2 line: Mức thưởng dành cho học bổng loại giỏi là bao nhiêu __label__topic11
+
+3 line: những điều cần biết khi vào phòng thi tiếng anh đầu vào __label__topic7
+
+4 line: một số điều cần lưu ý khi đổi điểm thi đầu vào tiếng anh __label__topic7
+
+5 line: Học phí học lại đối với sinh viên Lào là bao nhiêu tiền một tín __label__topic3
+
+6 line: Văn phòng Khoa KT của học viện ở đâu __label__topic1
+
+7 line: Làm thế nào để đến được phòng văn thư của học viện __label__topic1
+
+8 line: Sinh viên thuộc hệ chất lượng cao ngành multimedia mỗi năm phải đóng bao nhiêu tiền __label__topic3
+
+9 line: cho em hỏi những đối tượng được hưởng học bổng __label__topic10
+
+num_examples of training: 23252 ;sentence_len: 200
+trainX[0:10]: [[260   9  16 ...   0   0   0]
+ [ 15  24  72 ...   0   0   0]
+ [223 113 515 ...   0   0   0]
+ ...
+ [139  57   9 ...   0   0   0]
+ [ 34   8 287 ...   0   0   0]
+ [ 60  70 102 ...   0   0   0]]
+trainY[0]: [array([1., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0.]), array([1., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0.]), array([0., 0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0.]), array([0., 0., 0., 0., 0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0.]), array([0., 0., 0., 0., 0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0.]), array([1., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0.]), array([0., 0., 0., 0., 0., 0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0.]), array([0., 0., 0., 0., 0., 0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0.]), array([1., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0.]), array([0., 0., 0., 0., 0., 0., 0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0.])]
+train_y_short: [0]
+use single layer CNN
+going to use multi label loss.
+sigmoid_cross_entropy_with_logits.losses: Tensor("loss/logistic_loss:0", shape=(?, 22), dtype=float32)
+Restoring Variables from Checkpoint.
+Test Loss:0.293	F1 Score:0.907	F1_micro:0.997	F1_macro:0.816
