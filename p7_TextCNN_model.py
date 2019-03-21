@@ -5,7 +5,7 @@ import tensorflow as tf
 import numpy as np
 
 class TextCNN:
-    def __init__(self, filter_sizes,num_filters,num_classes, learning_rate, batch_size, decay_steps, decay_rate,sequence_length,vocab_size,embed_size,is_training_flag
+    def __init__(self, filter_sizes,num_filters,num_classes, learning_rate, batch_size, decay_steps, decay_rate,sequence_length,vocab_size,embed_size
                  ,initializer=tf.random_normal_initializer(stddev=0.1),multi_label_flag=False,clip_gradients=5.0,decay_rate_big=0.50):
         """init all hyperparameter here"""
         # set hyperparamter
@@ -22,9 +22,9 @@ class TextCNN:
         self.num_filters_total=self.num_filters * len(filter_sizes) #how many filters totally.
         self.multi_label_flag=multi_label_flag
         self.clip_gradients = clip_gradients
-        self.is_training_flag = is_training_flag
+        self.is_training_flag = False
         #self.is_training_flag = tf.placeholder(tf.bool, name="is_training_flag")
-
+        
         # add placeholder (X,label)
         self.input_x = tf.placeholder(tf.int32, [None, self.sequence_length], name="input_x")  # X
         #self.input_y = tf.placeholder(tf.int32, [None,],name="input_y")  # y:[None,num_classes]
@@ -207,14 +207,14 @@ class TextCNN:
 #test started. toy task: given a sequence of data. compute it's label: sum of its previous element,itself and next element greater than a threshold, it's label is 1,otherwise 0.
 #e.g. given inputs:[1,0,1,1,0]; outputs:[0,1,1,1,0].
 #invoke test() below to test the model in this toy task.
-def test(input):
+def test(input_data):
     #below is a function test; if you use this for text classifiction, you need to transform sentence to indices of vocabulary first. then feed data to the graph.
-    num_classes=5
+    num_classes=12
     learning_rate=0.001
     batch_size=8
     decay_steps=1000
     decay_rate=0.95
-    sequence_length=5
+    sequence_length=200
     vocab_size=10000
     embed_size=100
     is_training=True
@@ -222,23 +222,30 @@ def test(input):
     filter_sizes=[2,3,4]
     num_filters=128
     multi_label_flag=True
-    textRNN=TextCNN(filter_sizes,num_filters,num_classes, learning_rate, batch_size, decay_steps, decay_rate,sequence_length,vocab_size,embed_size,is_training_flag=is_training,multi_label_flag=multi_label_flag)
+    textRNN=TextCNN(filter_sizes,num_filters,num_classes, learning_rate, batch_size, decay_steps, decay_rate,sequence_length,vocab_size,embed_size,multi_label_flag=multi_label_flag)
+    textRNN.is_training_flag = False
     with tf.Session() as sess:
        sess.run(tf.global_variables_initializer())
        for i in range(500):
-           #input_x=np.random.randn(batch_size,sequence_length) #[None, self.sequence_length]           
-           input_x = input
+           #input_x=np.random.randn(batch_size,sequence_length) #[None, self.sequence_length]        
+           #print(input_x)   
+           #print(input_data.shape)
+           input_x,input_y_multilabel = input_data
            input_x[input_x>=0]=1
            input_x[input_x <0] = 0
-           input_y_multilabel=get_label_y(input_x)
+           #input_y_multilabel=get_label_y(input_x)
            loss,possibility,W_projection_value,_=sess.run([textRNN.loss_val,textRNN.possibility,textRNN.W_projection,textRNN.train_op],
                                                     feed_dict={textRNN.input_x:input_x,textRNN.input_y_multilabel:input_y_multilabel,
+                                                    
                                                                textRNN.dropout_keep_prob:dropout_keep_prob,textRNN.tst:False})
            print(i,"loss:",loss,"-------------------------------------------------------")
-           print("label:",input_y_multilabel);#print("possibility:",possibility)
+           print("label:",input_y_multilabel);
+           print("possibility:",possibility)
 
 def get_label_y(input_x):
     length=input_x.shape[0]
+    #length=input_x.shape[1]
+    
     input_y=np.zeros((input_x.shape))
     for i in range(length):
         element=input_x[i,:] #[5,]

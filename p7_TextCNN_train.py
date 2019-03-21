@@ -52,7 +52,9 @@ def main(_):
     print("cnn_model.vocab_size:",FLAGS.vocab_size);num_classes=len(vocabulary_label2index);print("num_classes:",num_classes)    
     print(vocabulary_label2index)
     train, test= load_data_multilabel(FLAGS.training_data_path,vocabulary_word2index, vocabulary_label2index,FLAGS.sentence_len)
+    print("train = ",train)
     trainX, trainY = train;testX, testY = test
+    print("trainX = ",trainX)
     num_examples,FLAGS.sentence_len=trainX.shape
     #print some message for debug purpose
     print("num_examples of training:",num_examples,";sentence_len:",FLAGS.sentence_len)
